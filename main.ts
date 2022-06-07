@@ -22,9 +22,9 @@ let TurnBackL = false
 // otaceni dozadu vlevo
 let TurnBackR = true
 // otaceni dozadu vpravo
-pins.setPull(DigitalPin.P4, PinPullMode.PullUp)
+pins.setPull(DigitalPin.P0, PinPullMode.PullUp)
 // nevim
-pins.setPull(DigitalPin.P5, PinPullMode.PullUp)
+pins.setPull(DigitalPin.P1, PinPullMode.PullUp)
 // nevim
 led.enable(false)
 // nevim
@@ -143,36 +143,36 @@ basic.forever(function on_forever() {
             // funkce pro otoceni vzadu (L/P)
             // #################################
             //  funkce pro odpocku u krizovatky (L/P)
-            if (pins.digitalReadPin(DigitalPin.P4) == barvaLinie && pins.digitalReadPin(DigitalPin.P5) == barvaLinie) {
+            if (sensors.sensor_infraredTracking(DigitalPin.P0) && sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 turnleft()
-            } else if (pins.digitalReadPin(DigitalPin.P4) == barvaOkoli && pins.digitalReadPin(DigitalPin.P5) == barvaLinie) {
+            } else if (!sensors.sensor_infraredTracking(DigitalPin.P0) && sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 forward()
-            } else if (pins.digitalReadPin(DigitalPin.P4) == barvaOkoli && pins.digitalReadPin(DigitalPin.P5) == barvaOkoli) {
+            } else if (!sensors.sensor_infraredTracking(DigitalPin.P0) && !sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 backward()
-            } else if (pins.digitalReadPin(DigitalPin.P4) == barvaLinie && pins.digitalReadPin(DigitalPin.P5) == barvaOkoli) {
+            } else if (sensors.sensor_infraredTracking(DigitalPin.P0) && !sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 turnleft()
             }
             
         } else if (OdbockaP) {
-            if (pins.digitalReadPin(DigitalPin.P4) == barvaLinie && pins.digitalReadPin(DigitalPin.P5) == barvaLinie) {
+            if (sensors.sensor_infraredTracking(DigitalPin.P0) && sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 turnright()
-            } else if (pins.digitalReadPin(DigitalPin.P4) == barvaOkoli && pins.digitalReadPin(DigitalPin.P5) == barvaLinie) {
+            } else if (!sensors.sensor_infraredTracking(DigitalPin.P0) && sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 turnright()
-            } else if (pins.digitalReadPin(DigitalPin.P4) == barvaOkoli && pins.digitalReadPin(DigitalPin.P5) == barvaOkoli) {
+            } else if (!sensors.sensor_infraredTracking(DigitalPin.P0) && !sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 backward()
-            } else if (pins.digitalReadPin(DigitalPin.P4) == barvaLinie && pins.digitalReadPin(DigitalPin.P5) == barvaOkoli) {
+            } else if (sensors.sensor_infraredTracking(DigitalPin.P0) && !sensors.sensor_infraredTracking(DigitalPin.P1)) {
                 forward()
             }
             
-        } else if (pins.digitalReadPin(DigitalPin.P4) == barvaLinie && pins.digitalReadPin(DigitalPin.P5) == barvaLinie) {
+        } else if (sensors.sensor_infraredTracking(DigitalPin.P0) && sensors.sensor_infraredTracking(DigitalPin.P1)) {
             // ##############################
             //  NORMÁLNÍ AUTOMATICKÁ JÍZDA
             forward()
-        } else if (pins.digitalReadPin(DigitalPin.P4) == barvaOkoli && pins.digitalReadPin(DigitalPin.P5) == barvaOkoli) {
+        } else if (!sensors.sensor_infraredTracking(DigitalPin.P0) && !sensors.sensor_infraredTracking(DigitalPin.P1)) {
             backward()
-        } else if (pins.digitalReadPin(DigitalPin.P4) == barvaOkoli && pins.digitalReadPin(DigitalPin.P5) == barvaLinie) {
+        } else if (!sensors.sensor_infraredTracking(DigitalPin.P0) && sensors.sensor_infraredTracking(DigitalPin.P1)) {
             turnright()
-        } else if (pins.digitalReadPin(DigitalPin.P4) == barvaLinie && pins.digitalReadPin(DigitalPin.P5) == barvaOkoli) {
+        } else if (sensors.sensor_infraredTracking(DigitalPin.P0) && !sensors.sensor_infraredTracking(DigitalPin.P1)) {
             turnleft()
         }
         

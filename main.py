@@ -19,8 +19,8 @@ TurnBackL = False #otaceni dozadu vlevo
 TurnBackR = True  #otaceni dozadu vpravo
 
 
-pins.set_pull(DigitalPin.P4, PinPullMode.PULL_UP) #nevim
-pins.set_pull(DigitalPin.P5, PinPullMode.PULL_UP)#nevim
+pins.set_pull(DigitalPin.P0, PinPullMode.PULL_UP) #nevim
+pins.set_pull(DigitalPin.P1, PinPullMode.PULL_UP)#nevim
 led.enable(False) #nevim
 
 ######################################################################xx
@@ -64,7 +64,6 @@ def on_received_string(receivedString):
         TurnBackR = True
 #M4
 radio.on_received_string(on_received_string)
-
 
 
 ######################################################################xx
@@ -115,32 +114,32 @@ def on_forever():
 
                     # funkce pro odpocku u krizovatky (L/P)
         elif OdbockaL:
-            if pins.digital_read_pin(DigitalPin.P4) == barvaLinie and pins.digital_read_pin(DigitalPin.P5) == barvaLinie:
+            if sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
                 turnleft()
-            elif pins.digital_read_pin(DigitalPin.P4) == barvaOkoli and pins.digital_read_pin(DigitalPin.P5) == barvaLinie:
+            elif not sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
                 forward()
-            elif pins.digital_read_pin(DigitalPin.P4) == barvaOkoli and pins.digital_read_pin(DigitalPin.P5) == barvaOkoli:
+            elif not sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
                 backward()
-            elif pins.digital_read_pin(DigitalPin.P4) == barvaLinie and pins.digital_read_pin(DigitalPin.P5) == barvaOkoli:
+            elif sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
                 turnleft()
         elif OdbockaP:
-            if pins.digital_read_pin(DigitalPin.P4) == barvaLinie and pins.digital_read_pin(DigitalPin.P5) == barvaLinie:
+            if sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
                 turnright()
-            elif pins.digital_read_pin(DigitalPin.P4) == barvaOkoli and pins.digital_read_pin(DigitalPin.P5) == barvaLinie:
+            elif not sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
                 turnright()
-            elif pins.digital_read_pin(DigitalPin.P4) == barvaOkoli and pins.digital_read_pin(DigitalPin.P5) == barvaOkoli:
+            elif not sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
                 backward()
-            elif pins.digital_read_pin(DigitalPin.P4) == barvaLinie and pins.digital_read_pin(DigitalPin.P5) == barvaOkoli:
+            elif sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
                 forward()
         ###############################
                 # NORMÁLNÍ AUTOMATICKÁ JÍZDA
-        elif pins.digital_read_pin(DigitalPin.P4) == barvaLinie and pins.digital_read_pin(DigitalPin.P5) == barvaLinie:
+        elif sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
             forward()
-        elif pins.digital_read_pin(DigitalPin.P4) == barvaOkoli and pins.digital_read_pin(DigitalPin.P5) == barvaOkoli:
+        elif not sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
             backward()
-        elif pins.digital_read_pin(DigitalPin.P4) == barvaOkoli and pins.digital_read_pin(DigitalPin.P5) == barvaLinie:
+        elif not sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
             turnright()
-        elif pins.digital_read_pin(DigitalPin.P4) == barvaLinie and pins.digital_read_pin(DigitalPin.P5) == barvaOkoli:
+        elif sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
             turnleft()
 basic.forever(on_forever)
 
