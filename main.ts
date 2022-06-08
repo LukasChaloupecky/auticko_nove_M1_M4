@@ -1,8 +1,8 @@
-let rychlost_vetsi = 600
+let rychlost_vetsi = 250
 // pro usnadnění
-let rychlost_mensi = 100
+let rychlost_mensi = 45
 // pro usnadnění
-let rychlost_otaceni = 600
+let rychlost_otaceni = 250
 // pro usnadnění
 let automaticke_ovladani = true
 // False při ovládání ovladačem
@@ -29,6 +29,27 @@ pins.setPull(DigitalPin.P1, PinPullMode.PullUp)
 led.enable(false)
 // nevim
 // #####################################################################xx
+input.onButtonPressed(Button.A, function on_button_pressed_a() {
+    let odbockaP: boolean;
+    
+    if (OdbockaL == true) {
+        OdbockaL = false
+    } else {
+        OdbockaL = true
+        odbockaP = false
+    }
+    
+    if (OdbockaP == true) {
+        if (OdbockaP == true) {
+            OdbockaP = false
+        } else {
+            OdbockaL = false
+            OdbockaP = true
+        }
+        
+    }
+    
+})
 // M4
 radio.onReceivedString(function on_received_string(receivedString: string) {
     let L: number;

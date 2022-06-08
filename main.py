@@ -1,6 +1,6 @@
-rychlost_vetsi = 600    #pro usnadnění
-rychlost_mensi = 100    #pro usnadnění
-rychlost_otaceni = 600  #pro usnadnění
+rychlost_vetsi = 250    #pro usnadnění
+rychlost_mensi = 45    #pro usnadnění
+rychlost_otaceni = 250  #pro usnadnění
 
 automaticke_ovladani = True #False při ovládání ovladačem
 
@@ -25,6 +25,20 @@ led.enable(False) #nevim
 
 ######################################################################xx
 
+def on_button_pressed_a():
+    global OdbockaP, OdbockaL
+    if OdbockaL == True:
+        OdbockaL = False
+    else:
+        OdbockaL = True
+        odbockaP = False
+    if OdbockaP == True:
+        if OdbockaP == True:
+            OdbockaP = False
+        else:
+            OdbockaL = False
+            OdbockaP = True
+input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_received_string(receivedString):
     global OdbockaL, OdbockaP, Turnaround, TurnBackL, TurnBackR, barvaLinie, barvaOkoli, automaticke_ovladani
@@ -132,7 +146,7 @@ def on_forever():
             elif sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
                 forward()
         ###############################
-                # NORMÁLNÍ AUTOMATICKÁ JÍZDA
+        # NORMÁLNÍ AUTOMATICKÁ JÍZDA
         elif sensors.sensor_infraredTracking(DigitalPin.P0) and sensors.sensor_infraredTracking(DigitalPin.P1):
             forward()
         elif not sensors.sensor_infraredTracking(DigitalPin.P0) and not sensors.sensor_infraredTracking(DigitalPin.P1):
